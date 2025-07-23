@@ -450,7 +450,7 @@ text-align: justify;
 /* ------------------------vaccine cards---------------- */
 
 .v-card{
-    padding: 3vw;
+    padding: 4vw;
     background-color: var(--bg-base-color);
 
 
@@ -539,8 +539,44 @@ transform: scale(1.1);
 
 }
 
+/* --------------------------hospital----------- */
+
+.h-sec{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-base-color);
+
+}
+
+.h-hd h1{
+    color: var(--text-color);
+    text-align: center;
+    padding: 5vh;
+    font-size: 5vw;
+}
+
+.accordion .accordion-item .accordion-header .accordion-button {
+    background-color: var(--bg-second);
+    font-size: 1.3vw;
+    color: var(--text-color2);
+    border: none;
+}
+
+/* .accordion .accordion-item .accordion-header .accordion-button .accordion-collapse .accordion-body{
+    background-color: var(--bg-base-color);
+} */
 
 
+.h-add-btn{
+     padding: 1vw 2vw;
+    /* margin-left: 2vw; */
+    margin-top: 3vh;
+    border-radius: 25px;
+    border: none;
+    font-size: 1vw;
+    color: var(--text-color2);
+    background-color: var(--bg-second);
+}
 
 /* ----------------------------footer---------------- */
 
