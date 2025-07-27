@@ -595,6 +595,7 @@ transform: scale(1.1);
 
 }
 
+*/
 .pre-vac{
     width: 100%;
     height: 15vh;
@@ -606,7 +607,7 @@ transform: scale(1.1);
     background-color: var(--bg-second);
 }
 
-
+/*
 @media(max-width:500px){
     .r-card{
     flex-direction:column ;
