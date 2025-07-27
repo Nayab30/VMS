@@ -13,23 +13,5 @@ cross.addEventListener("click", function(){
 });
 // ------------------------------------------------------
 
-// const toggle =document.getElementById('toggleDark');
-// const body = document.querySelector('body');
-
-// toggle.addEventListener("click", function(){
-//     this.classList.toggle('ri-moon-fill');
-//     document.body.classList.contains('darktheme');
-
-//     if(this.classList.toggle('ri-sun-line')){
-//         document.body.classList.contains('darktheme');
-//         body.style.transition ='2s';
-
-//     }else{
-//         // body.style.background = 'black';
-//         body.style.transition ='2s';
-
-
-//     }
-// })
 
 

@@ -187,6 +187,7 @@ padding: 1.5vw;
 
     .cent-nav{
         display: none;
+      
     }
     .right-nav{
         display: none;
@@ -199,7 +200,7 @@ padding: 1.5vw;
     }
 
 .responsive-nav{
-        display:initial;
+        display:none;
         position:absolute;
         top: 0;
         left:-100%;
@@ -209,7 +210,7 @@ padding: 1.5vw;
         flex-direction:column;
         gap: 5vh;
         z-index:12;
-        width: 100%;
+        width: 50%;
         height: 100%;
         background-color:var(--bg-base-color);
         /* background-color: aliceblue; */
@@ -363,21 +364,31 @@ padding: 1.5vw;
 @media(max-width:500px){
     .num-counter{
         width: 100%;
-        height: 70vh;
+        height: 80vh;
         font-size: 3vh;
         padding: 3vh;
         text-align: center;
 
     }
     .counter{
-        font-size:20vh;
+
+        font-size:5vh;
+        margin-left: 30vw;
+
     }
 
     .count-row{
         display:flex;
+        
         flex-direction: column;
     }
 
+    .count-row p{
+        width:40vw;
+        /* display: none; */
+        font-size:20px;
+        margin-left: 15vw;
+    }
    
 }
 
@@ -590,24 +601,24 @@ transform: scale(1.1);
 
 .contact{
     width: 100%;
-    height: 50vh;
-    padding-top: 6vh;
+    height: 70vh;
+    padding-top: 10vh;
     background-color: var(--bg-base-color);
 }
 
 
-.c-data{
+/* .c-data{
     width: 110vh;
     height: 70vh;
     background-color: var(--bg-second);
     border: 5px solid var(--bg-base-color);
-    /* border-radius: 20px; */
+    border-radius: 20px;
      border-radius: 26% 74% 30% 70% / 72% 22% 78% 28%;
     animation: contact-wave 3s ease-in-out infinite;
    
   
    
-}
+}*/
 @keyframes contact-wave {
    0%{
      border-radius: 5% 95% 15% 85% / 80% 10% 90% 20%;
@@ -620,17 +631,114 @@ transform: scale(1.1);
 
    }
 
+} 
+
+.c-data{
+    background-color: var(--bg-second);
+    color: var(--text-color2);
+    margin-left: 10vw;
+    padding: 1.5vw 6vw;
+    border-radius: 20px;
+
+    /* animation: contact-wave 3s ease-in-out infinite; */
+   
 }
 
+.c-img img{
+    margin-left: 4.5vw;
+    margin-top: -15vh;
+}
 
+.c-btn{
+    border:none;
+    padding:5px;
+    border-radius: 10px;
+    font-size: 20px;
+    background-color: var(--bg-base-color);
+    color: var(--text-color);
+}
 
 .c-row{
     display: flex;
-    margin-left: 10vw;
+    margin-left: 20vw;
    
 }
 
 
+
+
+/* --------------loader---------- */
+/* *Loader CSS */
+.loader-wrapper {
+    position: fixed;
+    z-index: 9999;
+    background: #fff;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.loader-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 0 0 5px #0D47A1;
+    overflow: hidden;
+}
+
+.loader-wave {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #0D47A1;
+    border-radius: 50%;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, .5);
+}
+
+.loader-wave:before,
+.loader-wave:after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+}
+
+.loader-wave:before {
+    border-radius: 45%;
+    background: rgba(255,255,255,1);
+    animation: animate 10s linear infinite;
+    -webkit-animation: animate 10s linear infinite;
+    -ms-animation: animate 10s linear infinite;
+    -moz-animation: animate 10s linear infinite;
+}
+
+.loader-wave:after {
+    border-radius: 40%;
+    background: rgba(255,255,255,.5);
+    animation: animate 15s linear infinite;
+    -webkit-animation: animate 15s linear infinite;
+    -ms-animation: animate 15s linear infinite;
+    -moz-animation: animate 15s linear infinite;
+}
+
+@keyframes animate {
+    0% { transform: translate(-50%, -75%) rotate(0deg) }
+    100% { transform: translate(-50%, -75%) rotate(360deg) }
+}
+
+@-webkit-keyframes animate {
+    0% { transform: translate(-50%, -75%) rotate(0deg) }
+    100% { transform: translate(-50%, -75%) rotate(360deg) }
+}
 
 
 
