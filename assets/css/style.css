@@ -465,6 +465,79 @@ text-align: justify;
 
 
 /* ------------------------vaccine cards---------------- */
+.card{
+    position: relative;
+    height: 400px;
+    width: 280px;
+    overflow: hidden;
+    margin-top: 50px;
+    margin-left: 10px;
+    border-radius: 30px;
+    background-color:var(--bg-base-color);
+    box-shadow: 10px 10px 8px #858484, -10px -10px 8px #8fb5cf;
+}
+
+.card .info{
+    position: relative;
+    overflow: hidden;
+}
+
+.card .info::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-second);
+    bottom: -180px;
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.card:nth-child(1) .info::before {
+    background: linear-gradient(0deg, rgb(122, 182, 219) 0%, rgb(100, 125, 194) 50%, transparent);
+   }
+.card:nth-child(2) .info::before {
+       background: linear-gradient(0deg, rgba(45,87,126,1) 0%, rgb(32, 62, 96) 50%, transparent );
+   }
+.card:nth-child(3) .info::before {
+       background: linear-gradient(0deg, rgb(159, 157, 157) 0%, rgb(136, 138, 138) 50%, transparent );
+   }
+
+
+
+
+.card:hover .info::before{
+    bottom: 0px;
+}
+
+
+.card .info img{
+    height: 400px;
+    border-radius: 10px;
+    padding-right: 2px;
+    width: auto;
+    transition: 0.5s;
+}
+
+.card:hover .info img{
+    transform: translateY(-30px);
+    filter: blur(5px);
+}
+
+
+.card .desc{
+    position: absolute;
+    width: 320px;
+    bottom: -250px;
+    z-index: 2;
+    padding: 20px;
+    left: 0;
+    transition: 0.5s;
+}
+
+.card:hover .desc{
+    bottom: -5px;
+}
 
 .v-card{
     padding: 4vw;
@@ -473,7 +546,6 @@ text-align: justify;
 
 }
 
-
 .hd{
     color: var(--text-color);
     font-size: 5vw;
@@ -481,6 +553,8 @@ text-align: justify;
     padding-bottom: 7vh;
 }
 
+
+/*
 .v-card .card {
     background-color: var(--bg-second);
     color: var(--text-color2);
@@ -499,11 +573,11 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
 transform: scale(1.1);
 
 }
-
+*/
 .r-card{
     display: flex;
 }
-
+/*
 .c-img{
     border-radius: 20px;
 }
@@ -554,7 +628,7 @@ transform: scale(1.1);
     width:50vw ;
 }
 
-}
+} */
 
 /* --------------------------hospital----------- */
 
@@ -595,13 +669,17 @@ transform: scale(1.1);
     background-color: var(--bg-second);
 }
 
+/* -------------------------- */
+
+
+
 
 
 /* --------------contact----------- */
 
 .contact{
     width: 100%;
-    height: 70vh;
+    height: 80vh;
     padding-top: 10vh;
     background-color: var(--bg-base-color);
 }
@@ -752,7 +830,11 @@ transform: scale(1.1);
 
 
 footer{
+
     width: 100%;
-    height: 80vh;
-    background-color: var(--bg-second);
+    height: 100vh;
+    /* background-color: var(--bg-second); */
+    background-image:linear-gradient(var(--bg-second),var(--bg-base-color));
+
+
 }
