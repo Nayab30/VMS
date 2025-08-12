@@ -276,7 +276,7 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
   <div class="col" data-aos="flip-right">
       <div class="card">
         <div class="info">
-            <img src="./assets/image/v5.JPG">
+            <img src="./assets/image/v6.png">
         </div>
 
         <div class="desc">
@@ -374,7 +374,7 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
      <div class="col" data-aos="flip-right">
       <div class="card">
         <div class="info">
-            <img src="./assets/image/v1.JPG">
+            <img src="./assets/image/v9.JPG">
         </div>
 
         <div class="desc">
@@ -400,7 +400,7 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
   <div class="col" data-aos="flip-left">
       <div class="card">
         <div class="info">
-            <img src="./assets/image/v2.png">
+            <img src="./assets/image/v5.JPG">
         </div>
 
         <div class="desc">
@@ -429,7 +429,7 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
     <div class="col" data-aos="flip-right">
       <div class="card">
         <div class="info">
-            <img src="./assets/image/v3.JPG">
+            <img src="./assets/image/v7.png">
         </div>
 
         <div class="desc">
@@ -458,7 +458,7 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
        <div class="col" data-aos="flip-left">
       <div class="card">
         <div class="info">
-            <img src="./assets/image/v4.png">
+            <img src="./assets/image/v8.JPG">
         </div>
 
         <div class="desc">
@@ -504,45 +504,46 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
   <div class="container">
     <div class="accordion" id="accordionExample" data-aos="fade-up">
       <?php 
-      include('Admindashboard/connection.php');
-      $qry ="SELECT * FROM hospital_tbl";
-      $res = mysqli_query($conn,$qry);
+include('Admindashboard/connection.php');
 
-      if(mysqli_num_rows($res) > 0){
-        $count = 1;
-        while($row = mysqli_fetch_array($res)){
-          ?>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading<?php echo $count; ?>">
-              <button class="accordion-button <?php echo ($count !== 1) ? 'collapsed' : ''; ?>" 
-                      type="button" 
-                      data-bs-toggle="collapse" 
-                      data-bs-target="#collapse<?php echo $count; ?>" 
-                      aria-expanded="<?php echo ($count === 1) ? 'true' : 'false'; ?>" 
-                      aria-controls="collapse<?php echo $count; ?>">
-                <?php echo htmlspecialchars($row['h_name']); ?>
-              </button>
-            </h2>
-            <div id="collapse<?php echo $count; ?>" 
-                 class="accordion-collapse collapse <?php echo ($count === 1) ? 'show' : ''; ?>" 
-                 data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <p><strong>Address:</strong> <?php echo htmlspecialchars($row['h_address']); ?></p>
-                <p><strong>Phone:</strong> <?php echo htmlspecialchars($row['h_phone']); ?></p>
-                <p><strong>Email:</strong> <?php echo htmlspecialchars($row['h_email']); ?></p>
-              </div>
-            </div>
-          </div>
-          <?php
-          $count++;
-        }
-      }
-      ?>
+$qry = "SELECT * FROM hospital_tbl WHERE h_status = 'Activate'";
+$res = mysqli_query($conn, $qry);
+
+if (mysqli_num_rows($res) > 0) {
+    $count = 1;
+    while ($row = mysqli_fetch_array($res)) {
+?>
+<div class="accordion-item">
+    <h2 class="accordion-header" id="heading<?php echo $count; ?>">
+        <button class="accordion-button <?php echo ($count !== 1) ? 'collapsed' : ''; ?>" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#collapse<?php echo $count; ?>" 
+                aria-expanded="<?php echo ($count === 1) ? 'true' : 'false'; ?>" 
+                aria-controls="collapse<?php echo $count; ?>">
+            <?php echo htmlspecialchars($row['h_name']); ?>
+        </button>
+    </h2>
+    <div id="collapse<?php echo $count; ?>" 
+         class="accordion-collapse collapse <?php echo ($count === 1) ? 'show' : ''; ?>" 
+         data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <p><strong>Address:</strong> <?php echo htmlspecialchars($row['h_address']); ?></p>
+            <p><strong>Phone:</strong> <?php echo htmlspecialchars($row['h_phone']); ?></p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($row['h_email']); ?></p>
+        </div>
+    </div>
+</div>
+<?php
+        $count++;
+    }
+}
+?>
     </div>
 
     <br>
     <h2>For Hospital Management</h2>
-    <button class="h-add-btn" data-bs-toggle="modal" data-bs-target="#myModalHregister">Register here</button>
+    <button class="h-add-btn" data-bs-toggle="" data-bs-target=""><a href="hospitaldashboard/hospitaladd.php">Register here</a></button>
     <button class="h-add-btn" data-bs-toggle="modal" data-bs-target="#myModalHlogin">Login here</button>
   </div>
 </section>
@@ -662,137 +663,7 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
         <div class="s-card"  > 
 
 
-            <!-- 1 -->
-            <!-- <div class="s-image" data-aos="slide-up"  data-aos-delay="1000">
-                <div class="s-about">
-                    <h3 class="s-name">Sara khan</h3>
-              
-    
-                    <h2 class="s-mo">Reviews</h2>
-                    <div class="s-mov">
-                       
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae itaque autem ullam ducimus! Ipsam beatae in vel perspiciatis facere earum incidunt, ea, dignissimos ipsa odio, maxime rerum. Ullam, cumque quaerat.</p>
-                        
-                    </div>
-    
-                </div>
-            </div> -->
-
-<!-- 2 -->
-
-        <!-- <div class="s-image" data-aos="slide-up"  data-aos-delay="2000">
-                 <div class="s-about">
-                    <h3 class="s-name">Saba Ahmed</h3>
-              
-    
-                    <h2 class="s-mo">Reviews</h2>
-                    <div class="s-mov">
-                       
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae itaque autem ullam ducimus! Ipsam beatae in vel perspiciatis facere earum incidunt, ea, dignissimos ipsa odio, maxime rerum. Ullam, cumque quaerat.</p>
-                        
-                    </div>
-    
-                </div>
-            </div> -->
-<!-- 3 -->
-            <!-- <div class="s-image" data-aos="slide-up"  data-aos-delay="3000">
-                <div class="s-about">
-                    <h3 class="s-name">Sara </h3>
-              
-    
-                    <h2 class="s-mo">Reviews</h2>
-                    <div class="s-mov">
-                   
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae itaque autem ullam ducimus! Ipsam beatae in vel perspiciatis facere earum incidunt, ea, dignissimos ipsa odio, maxime rerum. Ullam, cumque quaerat.</p>
-                        
-                    </div>
-    
-                </div>
-            </div> -->
-
-
-          <!--  4-->
-            <!-- <div class="s-image" data-aos="slide-up"  data-aos-delay="1000">
-                 <div class="s-about">
-                    <h3 class="s-name">Sara khan</h3>
-              
-    
-                    <h2 class="s-mo">Reviews</h2>
-                    <div class="s-mov">
-                      
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae itaque autem ullam ducimus! Ipsam beatae in vel perspiciatis facere earum incidunt, ea, dignissimos ipsa odio, maxime rerum. Ullam, cumque quaerat.</p>
-                        
-                    </div>
-    
-                </div>
-            </div> -->
-<!-- 5 -->
-
-    
-            <!-- <div class="s-image" data-aos="slide-up"  data-aos-delay="2000">
-                <div class="s-about">
-                    <h3 class="s-name">Sara khan</h3>
-              
-    
-                    <h2 class="s-mo">Reviews</h2>
-                    <div class="s-mov">
-                        
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae itaque autem ullam ducimus! Ipsam beatae in vel perspiciatis facere earum incidunt, ea, dignissimos ipsa odio, maxime rerum. Ullam, cumque quaerat.</p>
-                        
-                    </div>
-    
-                </div>
-            </div> -->
-<!-- 6 -->
-
- <!-- <div class="s-image" data-aos="slide-up"  data-aos-delay="3000" >
-                <div class="s-about">
-                    <h3 class="s-name">Salar Asif</h3>
-              
-    
-                    <h2 class="s-mo">Reviews</h2>
-                    <div class="s-mov">
-                        
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae itaque autem ullam ducimus! Ipsam beatae in vel perspiciatis facere earum incidunt, ea, dignissimos ipsa odio, maxime rerum. Ullam, cumque quaerat.</p>
-                        
-                    </div>
-    
-                </div>
-            </div> -->
-
-            <!-- 7 -->
-
-             <!-- <div class="s-image" data-aos="slide-up"  data-aos-delay="1000">
-                <div class="s-about">
-                    <h3 class="s-name">Tooba Asif</h3>
-              
-    
-                    <h2 class="s-mo">Reviews</h2>
-                    <div class="s-mov">
-                        
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae itaque autem ullam ducimus! Ipsam beatae in vel perspiciatis facere earum incidunt, ea, dignissimos ipsa odio, maxime rerum. Ullam, cumque quaerat.</p>
-                        
-                    </div>
-    
-                </div>
-            </div> -->
-
-            <!-- 8 -->
-
-            <!-- <div class="s-image" data-aos="slide-up"  data-aos-delay="2000">
-                <div class="s-about">
-                    <h3 class="s-name">Marium Javed</h3>
-              
-    
-                    <h2 class="s-mo">Reviews</h2>
-                    <div class="s-mov">
-                        
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae itaque autem ullam ducimus! Ipsam beatae in vel perspiciatis facere earum incidunt, ea, dignissimos ipsa odio, maxime rerum. Ullam, cumque quaerat.</p>
-                        
-                    </div>
-    
-                </div>
-            </div> -->
+            
         </div>
     </div>
         </div>
@@ -992,6 +863,7 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
    
     <button type="submit" class="btn l-btn" name="btnlogin">Login </button>
   </form>
+  
   <?php
 if(isset($_POST['btnlogin']))
 {
@@ -1009,7 +881,7 @@ if(isset($_POST['btnlogin']))
       $_SESSION['hospital_session'] = $row['hospital_id'];
        echo"<script>
       alert('Login succussful');
-      window.location.href='hospitaldashboard/hospital-dashboard.php';
+      window.location.href='hospitaldashboard/dashboard.php';
       </script>";
      
      
@@ -1057,7 +929,7 @@ if(isset($_POST['btnlogin']))
       <!-- Modal body -->
       <div class="modal-body">
     <div class="container mt-3">
-  <form action="/" method="post">
+  <form action="hospitaldashboard/hospitalinsert.php" method="post">
      <div class="mb-3 mt-3">
       <label for="">Hospital Name:</label>
       <input type="text" class="form-control" id="hname" name="hname">
@@ -1077,10 +949,10 @@ if(isset($_POST['btnlogin']))
     </div>
     <div class="mb-3">
       <label for="pwd">Address:</label>
-      <input type="text" class="form-control" id="pwd" name="adress">
+      <input type="text" class="form-control" id="pwd" name="address">
     </div>
  <div class="mb-3">
-      <button type="submit" class="btn r-btn">Register Now</button>
+      <button type="hsubmit" class="btn r-btn">Register Now</button>
     </div>
 
     

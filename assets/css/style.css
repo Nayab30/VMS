@@ -675,48 +675,11 @@ text-align: justify;
 }
 
 
-/*
-.v-card .card {
-    background-color: var(--bg-second);
-    color: var(--text-color2);
-    border-radius: 30px;
-    margin: 1vw;
-    padding: 1vw;
-    align-items: center;
-     transition-duration: 0.8s;
-    transition: 0.3s ease-in-out;
-}
 
-
-
-.v-card .card:hover{
-box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-transform: scale(1.1);
-
-}
-*/
 .r-card{
     display: flex;
 }
-/*
-.c-img{
-    border-radius: 20px;
-}
 
-.modal-btn{
-   
-    border: none;
-    border-radius: 10px;
-    background-color: var(--bg-base-color);
-    color: var(--text-color);
-    font-size: 1vw;
-    padding: 0.5vw 1vw ;
-    margin: 0.5vw;
-   
-
-}
-
-*/
 .pre-vac{
     width: 100%;
     height: 15vh;
