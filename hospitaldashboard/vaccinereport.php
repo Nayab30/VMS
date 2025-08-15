@@ -3,6 +3,7 @@ include('connection.php');
 session_start();
 if(!isset($_SESSION['hospital_session'])){
     header("Location:../home.php");
+    
 }
 
 
@@ -105,6 +106,7 @@ if(!isset($_SESSION['hospital_session'])){
                     <!--Image Avatar-->
                     <div class="avatar text-center">
                        
+                       
                         <?php
                         include('connection.php');
                         $qry ="SELECT * FROM hospital_tbl WHERE hospital_id = {$_SESSION['hospital_session']} ";
@@ -140,142 +142,97 @@ if(!isset($_SESSION['hospital_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-             <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0" style="height:140vh;">
-                <h2 class="mb-3" ><strong>Dashboard</strong></h2>
-
-                <div class="container">
-                    <div class="d-row">
-                        <div class="d-col">
-                    <?php  
-                        $qry ="SELECT * FROM appointment_tbl";
-
-                        $res = mysqli_query($conn,$qry);
-                        $appointment_count =mysqli_num_rows($res);
+           <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0" style="height:100vh;">
+                <h2 class="mb-3" ><strong>List of Vaccine report</strong></h2>
+                
+                
+            
+                <div class="mt-4 mb-4 p-3  border shadow-sm lh-sm">
+                    <!--child  Listing-->
                         
-                        ?>
-                             <div class="number"><?php echo $appointment_count  ?></div>
-                            <div class="cardname">Appointments</div>
-                        </div>
-                        
-                        <div class="d-col">
-                    <?php  
-                        $qry ="SELECT * FROM vaccines_tbl";
+                       <div class="table-responsive child-list">
+    <table class="table table-bordered table-striped mt-0" id="childList">
+        <thead>
+            <tr>
+                <th class="text-center">Appointment Id</th>
+                <th class="text-center" scope="row">Child Name</th>
+                <th class="text-center">Hospital Name</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Time</th>
+                <th class="text-center">Vaccine Name</th>
+                <th class="text-center">Status</th>   
+                <th class="text-center">Action</th>                                                                                            
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            include('connection.php');
+            $qry = "
+                SELECT 
+                    parent_tbl.p_name AS pname, 
+                    hospital_tbl.h_name AS hname, 
+                    vaccines_tbl.v_name AS vname, 
+                    appointment_tbl.* 
+                FROM appointment_tbl 
+                INNER JOIN parent_tbl 
+                    ON appointment_tbl.parent_id = parent_tbl.parent_id 
+                INNER JOIN hospital_tbl 
+                    ON appointment_tbl.hospital_id = hospital_tbl.hospital_id 
+                INNER JOIN vaccines_tbl 
+                    ON appointment_tbl.v_id = vaccines_tbl.v_id 
+                WHERE appointment_tbl.hospital_id = {$_SESSION['hospital_session']}
+            ";
 
-                        $res = mysqli_query($conn,$qry);
-                        $vaccine_count =mysqli_num_rows($res);
-                        
-                        ?>
-                             <div class="number"><?php echo $vaccine_count  ?></div>
-                            <div class="cardname">Vaccines</div>
-                        </div>
-                      
+            $res = mysqli_query($conn, $qry);
 
-                    </div>
+            if(mysqli_num_rows($res) > 0){
+                while($row = mysqli_fetch_array($res)){
+                    $id = $row['appoint_id'];
+                    $c_name = $row['pname'];
+                    $h_name = $row['hname'];
+                    $date = $row['date'];
+                    $time = $row['time'];
+                    $v_name = $row['vname'];
+                    $status = $row['app_status'];
 
-
-                </div>
-                <div class="container">
-                       <h2 class="mt-4 mb-4" ><strong>My Profile</strong></h2>
-                    <form  method="POST">
-        <div class="mb-3 mt-3">
-    
-    <!-- <input type="text" class="form-control bg-light"  name="id" value=" hidden > 
-  </div> -->
-        <div class="mb-3 mt-3">
-            <label for="name" class="form-label">Hospital Name:</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="<?php echo $row['h_name']  ?>"  required>
-        </div>
-        <div class="mb-3 mt-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="<?php echo $row['h_email']  ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="pwd" class="form-label">Password:</label>
-            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd"  value="<?php echo $row['h_password']  ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="pwd" class="form-label">Phone no:</label>
-            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="phn"  value="<?php echo $row['h_phone']  ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="pwd" class="form-label">Address:</label>
-            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="address"  value="<?php echo $row['h_address']  ?>" required>
-        </div>
-        <button type="submit" class="btn updatebtn " name="updatebtn">Update Profile</button>
-    </form>
-
-    <?php
-        if(isset($_POST['updatebtn'])){
-
-            $name =$_POST['name'];
-            $email = $_POST['email'];
-            $password =$_POST['pswd'];
-            $phn =$_POST['phn'];
-            $address =$_POST['address'];
-
-
-            $qry="UPDATE hospital_tbl SET h_name = '$name',h_email='$email',h_password = '$password', h_phone = '$phn', h_address = '$address' WHERE hospital_id = {$_SESSION['hospital_session']}";
-
-            $res = mysqli_query($conn,$qry);
-            if($res){
-                echo"<script>
-                        alert('Profile Updated Succussful');
-                        window.location.href='dashboard.php';
-                </script>";
-            }
-        }
-
-    ?>
-
-            </div>
-            <div class="container">
-                <div class=image style="width:300px;">
-                    <img src="<?php echo $row['h_image'];  ?>"  alt="img" width="200">
-
-                </div>
-                <form method="post" enctype="multipart/form-data">
-                    <input type="file" name="image" ><br><br>
-                    <button type="submit" name="btnupload" class="btn updatebtn " >Upload image</button>
-
-                </form>
-                <?php
-
-                if(isset($_POST['btnupload'])){
-                    $imageName = $_FILES['image']['name'];
-                    $tempName = $_FILES['image']['tmp_name'];
-                    $path = "assets/image/$imageName";
-                    move_uploaded_file($tempName,$path);
-
-                    $qry = "UPDATE hospital_tbl SET h_image='$path' WHERE hospital_id = $_SESSION[hospital_session]";
-
-                    $res =mysqli_query($conn,$qry);
-
-                    if($res){
-                        echo
-                        "<script>
-                        alert('Image Changed Succussfully');
-                        window.location.href='dashboard.php';
-                        
-                        </script>";
+                    // Determine action button/text
+                    if($status === "Accepted"){
+                        $statusDisplay = "<a href='vaccinated.php?id={$id}' class='btn btn-success btn-sm'>Vaccinated</a>";
+                    } elseif($status === "Pending"){
+                        $statusDisplay = "<span class='btn btn-warning text-dark btn-sm'>Process</span>";
+                    } elseif($status === "Vaccinated"){
+                        $statusDisplay = "<span class=' '>Process Done</span>";
+                    } else {
+                        $statusDisplay = "---";
                     }
+
+                    echo "<tr>
+                        <td class='align-middle text-center'>{$id}</td>
+                        <td scope='row' class='align-middle text-center'>{$c_name}</td>
+                        <td class='text-center'>{$h_name}</td>
+                        <td class='text-center'>{$date}</td>
+                        <td class='text-center'>{$time}</td>
+                        <td class='text-center'>{$v_name}</td>
+                        <td class='text-center'>{$status}</td>
+                        <td class='text-center'>{$statusDisplay}</td>
+                    </tr>";
                 }
-
-                ?>
-
-
-            </div>
-
-
-                </div>
-
-
-
+            } else {
+                echo "<tr><td colspan='8' class='text-center'>Data not found</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
 </div>
 
+                    <!--/child Listing-->
+                   
 
+                    
+                </div>
 
-            <!--  Content right -->
-           
+                <!--Footer-->
+                
                 <!--Footer-->
 
             </div>

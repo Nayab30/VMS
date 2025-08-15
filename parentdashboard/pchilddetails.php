@@ -1,9 +1,8 @@
 <?php
 include('connection.php');
 session_start();
-if(!isset($_SESSION['hospital_session'])){
+if(!isset($_SESSION['parent_session'])){
     header("Location:../home.php");
-    
 }
 
 
@@ -33,7 +32,7 @@ if(!isset($_SESSION['hospital_session'])){
 />
    
     
-    <title>Hospital Panel</title>
+    <title>Parent Panel</title>
     <style>
          @media(max-width:500px){
     
@@ -64,7 +63,7 @@ if(!isset($_SESSION['hospital_session'])){
             <!--Logo-->
             <div class="col-sm-3 pl-0 text-center header-logo">
                <div class="bg-theme mr-3 pt-3 pb-2 mb-0">
-                    <h3 class="logo"><a href="#" class="text-secondary logo"><img src="./assets/image/logo.png" alt="" class="logo" width="100"><span class="small">Hospital Panel</span></a></h3>
+                    <h3 class="logo"><a href="#" class="text-secondary logo"><img src="./assets/image/logo.png" alt="" class="logo" width="100"><span class="small">Your Panel</span></a></h3>
                </div>
             </div>
             <!--Logo-->
@@ -106,22 +105,21 @@ if(!isset($_SESSION['hospital_session'])){
                     <!--Image Avatar-->
                     <div class="avatar text-center">
                        
-                       
                         <?php
                         include('connection.php');
-                        $qry ="SELECT * FROM hospital_tbl WHERE hospital_id = {$_SESSION['hospital_session']} ";
+                        $qry ="SELECT * FROM parent_tbl WHERE parent_id = {$_SESSION['parent_session']} ";
 
                        $res = mysqli_query($conn,$qry);
 
                      $row = mysqli_fetch_array($res);
 
                       echo"
-                       <a href='hospitalprofile.php'>  
-                        <img src='".$row['h_image']."' alt='' class='rounded-circle' />
+                       <a href='parentprofile.php'>  
+                        <img src='".$row['p_image']."' alt='' class='rounded-circle' />
 
                         </a>
-                        <p><strong>".$row['h_name']."</strong></p>
-                       <span class='text-primary small'><strong>".$row['h_email']."</strong></span>";
+                        <p><strong>".$row['p_name']."</strong></p>
+                       <span class='text-primary small'><strong>".$row['p_email']."</strong></span>";
 
                         ?>
                        
@@ -143,9 +141,9 @@ if(!isset($_SESSION['hospital_session'])){
 
             <!--Content right-->
            <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0" style="height:100vh;">
-                <h2 class="mb-3" ><strong>List of Appointments</strong></h2>
+                <h2 class="mb-3" ><strong>Child Details</strong></h2>
                 
-                
+                 <button class="btn  btn-lg m-4" style="background-color:var(--bg-base-color);"><a href="childadd.php" style="text-decoration:none;color:var(--text-color);">Add new Child</a></button>
             
                 <div class="mt-4 mb-4 p-3  border shadow-sm lh-sm">
                     <!--child  Listing-->
@@ -156,55 +154,47 @@ if(!isset($_SESSION['hospital_session'])){
                                 <thead>
                                     <tr>
                                     
-                                        <th class="text-center">Appointment Id</th>
-                                                <th class="text-center" scope="row">Parent Name</th>
-                                                <th class="text-center">Hospital Name</th>
-                                                <th class="text-center">Date</th>
-                                                <th class="text-center">Time</th>
-                                                <th class="text-center">Vaccine Name</th>
-                                                <th class="text-center">Status</th>                                                                                               
-                                                
+                                        <th class="text-center">Id</th>
+                                                <th class="text-center" scope="row">Child Name</th>
+                                                <th class="text-center">Father's Name</th>
+                                               
+                                                <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                         include('connection.php');
-                  $qry = "
-SELECT 
-    parent_tbl.p_name AS pname, 
-    hospital_tbl.h_name AS hname, 
-    vaccines_tbl.v_name AS vname, 
-    appointment_tbl.* 
-FROM appointment_tbl 
-INNER JOIN parent_tbl 
-    ON appointment_tbl.parent_id = parent_tbl.parent_id 
-INNER JOIN hospital_tbl 
-    ON appointment_tbl.hospital_id = hospital_tbl.hospital_id 
-INNER JOIN vaccines_tbl 
-    ON appointment_tbl.v_id = vaccines_tbl.v_id 
-WHERE appointment_tbl.hospital_id = {$_SESSION['hospital_session']}
-";
+                       $qry = "
+                            SELECT 
+                            parent_tbl.p_name AS pname, 
+                            child_tbl.*
+                            FROM child_tbl 
+                            INNER JOIN parent_tbl ON child_tbl.parent_id = parent_tbl.parent_id WHERE child_tbl.parent_id = " . intval($_SESSION['parent_session']);
 
                         $res = mysqli_query($conn,$qry);
 
                     if(mysqli_num_rows($res)>0){
                         while($row=mysqli_fetch_array($res)){
-                            $id =$row['appoint_id'];
-                            $c_name=$row['pname'];
-                            $h_name =$row['hname'];
-                            $date=$row['date'];
-                            $time = $row['time'];
-                            $v_name = $row['vname'];
-                            $status = $row['app_status'];
-
+                            $id =$row['child_id'];
+                            $name=$row['c_name'];
+                            $parent_name=$row['pname'];
+                            $fathername =$row['c_fathername'];
+                            $age =$row['c_age'];
+                            $gender = $row['c_gender'];
                           
                                             echo"<tr>
                                                 <td class='align-middle text-center'>".$id."</td>
-                                                <td scope='row' class='align-middle text-center'>".$c_name."</td>
-                                                <td class='text-center' >".$h_name."</td>
-                                                 <td class='text-center' >".$date."</td> <td class='text-center' >".$time."</td> <td class='text-center' >".$v_name."</td>
-                                                  <td class='text-center' >".$status."</td>
-                                        
+                                                <td scope='row' class='align-middle text-center'>".$name."</td>
+                                                <td class='text-center' >".$fathername."</td>
+                                             
+                                            <td class='text-center'>
+                                            <button class='btn btn-info mt-2 ml-2' style='color:white;'data-toggle='modal' data-target='#idview'><i class='fa-solid fa-eye'></i></button>
+
+                                             <button class='btn btn-success mt-2 ml-2 '><a style='color:white;' href='childupdate.php?id=$row[child_id]' ><i class='fa-solid fa-pen-to-square'></i></a></button>
+
+                                              <button class='btn btn-danger mt-2 ml-2 '><a style='color:white;' href='childdelete.php?id=$row[child_id]' ><i class='fa-solid fa-trash'></i></a></button>
+                                         
+                                        </td>
                                     </tr>";
                     }
                     }else{
@@ -220,7 +210,7 @@ WHERE appointment_tbl.hospital_id = {$_SESSION['hospital_session']}
                    
 
                     <!--child Update Modal-->
-        <div class="modal fade" id="idUpdate" tabindex="-1" role="dialog"    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="color:var(--text-color); background-color:var(--login-bg);">
+        <div class="modal fade" id="idview" tabindex="-1" role="dialog"    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="color:var(--text-color); background-color:var(--login-bg);">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
                             <div class="modal-content" style="color:var(--text-color); background-color:var(--bg-base-color);">
                                 <div class="modal-header" style="color:var(--text-color); background-color:var(--bg-base-color);">
@@ -233,7 +223,12 @@ WHERE appointment_tbl.hospital_id = {$_SESSION['hospital_session']}
                                     
                         <?php
                         include('connection.php');
-                        $qry ="SELECT * FROM child_tbl ";
+                        $qry = "
+                            SELECT 
+                            parent_tbl.p_name AS pname, 
+                            child_tbl.*
+                            FROM child_tbl 
+                            INNER JOIN parent_tbl ON child_tbl.parent_id = parent_tbl.parent_id WHERE child_tbl.parent_id = " . intval($_SESSION['parent_session']);
 
                         $res = mysqli_query($conn,$qry);
 
@@ -247,6 +242,8 @@ WHERE appointment_tbl.hospital_id = {$_SESSION['hospital_session']}
                     <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">Child Id : <?php echo $row['child_id']  ?></li>
 
                     <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">Child Name : <?php echo $row['c_name']  ?></li>
+
+                      <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">User Name : <?php echo $row['pname']  ?></li>
 
                     <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">Father's Name : <?php echo $row['c_fathername']  ?></li>
 
@@ -297,7 +294,7 @@ WHERE appointment_tbl.hospital_id = {$_SESSION['hospital_session']}
 
   <!-- -------------- Theme-------------------- -->
 
-   <script>
+     <script>
     var icon = document.getElementById("toggleDark");
 
     // Load saved theme on page load

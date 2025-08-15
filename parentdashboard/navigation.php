@@ -6,16 +6,22 @@
                                 </a>
                              
                             </li>
+
+                            <li class="parent">
+                                <a href="pchilddetails.php" class=""><i class="fa-solid fa-child mr-3"></i>
+                                    <span class="none">Add child details </span>
+                                </a>
+                            </li>
                           
                         
-                            </li>
+                        
                             <li class="parent">
-                                <a href="hospitalappoint.php" class=""><i class="fa-solid fa-clipboard-list mr-3"></i>
+                                <a href="parentappoint.php" class=""><i class="fa-solid fa-clipboard-list mr-3"></i>
                                     <span class="none">Appointments </span>
                                 </a>
                             </li>
                             <li class="parent">
-                                <a href="vaccinereport.php"  class=""><i class="fa-solid fa-square-poll-horizontal mr-3"></i>
+                                <a href="pvaccinereport.php"  class=""><i class="fa-solid fa-square-poll-horizontal mr-3"></i>
                                     <span class="none">Report of vaccination<i class="pull-right align-bottom"></i></span>
                                 </a>
                                 
@@ -27,7 +33,7 @@
                                 
                             </li>
                             <li class="parent">
-                                <a href="hospitallogout.php" class=""><i class="fa-solid fa-right-from-bracket mr-3"></i>
+                                <a href="parentlogout.php" class=""><i class="fa-solid fa-right-from-bracket mr-3"></i>
                                     <span class="none">Logout <i class=" pull-right align-bottom"></i></span>
                                 </a>
                             </li>

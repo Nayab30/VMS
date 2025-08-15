@@ -1,10 +1,16 @@
 <?php
+// error_reporting(0);
 include('connection.php');
 session_start();
-if(!isset($_SESSION['hospital_session'])){
-    header("Location:../home.php");
+if(!isset($_SESSION['parent_session'])){
+    echo"<script>window.location.href='../home.php'</script>";
 }
 
+$qry ="SELECT * FROM parent_tbl WHERE parent_id =$_SESSION[parent_session] ";
+
+$res = mysqli_query($conn,$qry);
+
+$row = mysqli_fetch_assoc($res);
 
 ?>
 
@@ -32,15 +38,21 @@ if(!isset($_SESSION['hospital_session'])){
 />
    
     
-    <title>Hospital Panel</title>
+    <title>parent Panel</title>
     <style>
-         @media(max-width:500px){
-    
-  .ri-sun-line{
-    display:none;
-  }
-    
+        :root{
+    --bg-base-color:#eaf5f4;
+    --text-color2:#eaf5f4;
+    --bg-second:#032944;
+    --text-color:#032944;
+
+
 }
+        .updatebtn{
+            margin-top:20px;
+            background-color:var(--bg-base-color);
+            color:var(--text-color);
+        }
     </style>
     
 </head>
@@ -63,7 +75,7 @@ if(!isset($_SESSION['hospital_session'])){
             <!--Logo-->
             <div class="col-sm-3 pl-0 text-center header-logo">
                <div class="bg-theme mr-3 pt-3 pb-2 mb-0">
-                    <h3 class="logo"><a href="#" class="text-secondary logo"><img src="./assets/image/logo.png" alt="" class="logo" width="100"><span class="small">Hospital Panel</span></a></h3>
+                    <h3 class="logo"><a href="#" class="text-secondary logo"><img src="./assets/image/logo.png" alt="" class="logo" width="100"><span class="small">Your Panel</span></a></h3>
                </div>
             </div>
             <!--Logo-->
@@ -104,26 +116,12 @@ if(!isset($_SESSION['hospital_session'])){
                 <div class="inner-sidebar mr-3">
                     <!--Image Avatar-->
                     <div class="avatar text-center">
-                       
-                        <?php
-                        include('connection.php');
-                        $qry ="SELECT * FROM hospital_tbl WHERE hospital_id = {$_SESSION['hospital_session']} ";
-
-                       $res = mysqli_query($conn,$qry);
-
-                     $row = mysqli_fetch_array($res);
-
-                      echo"
-                       <a href='hospitalprofile.php'>  
-                        <img src='".$row['h_image']."' alt='' class='rounded-circle' />
+                        <a href="parentprofile.php">  
+                        <img src="<?php echo $row['p_image'];?>" alt="" class="rounded-circle" />
 
                         </a>
-                        <p><strong>".$row['h_name']."</strong></p>
-                       <span class='text-primary small'><strong>".$row['h_email']."</strong></span>";
-
-                        ?>
-                       
-                       
+                        <p><strong><?php echo $row['p_name']  ?></strong></p>
+                        <span class="text-primary small"><strong><?php echo $row['p_email']  ?></strong></span>
                     </div>
                     <!--Image Avatar-->
 
@@ -140,67 +138,31 @@ if(!isset($_SESSION['hospital_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-             <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0" style="height:140vh;">
-                <h2 class="mb-3" ><strong>Dashboard</strong></h2>
-
-                <div class="container">
-                    <div class="d-row">
-                        <div class="d-col">
-                    <?php  
-                        $qry ="SELECT * FROM appointment_tbl";
-
-                        $res = mysqli_query($conn,$qry);
-                        $appointment_count =mysqli_num_rows($res);
-                        
-                        ?>
-                             <div class="number"><?php echo $appointment_count  ?></div>
-                            <div class="cardname">Appointments</div>
-                        </div>
-                        
-                        <div class="d-col">
-                    <?php  
-                        $qry ="SELECT * FROM vaccines_tbl";
-
-                        $res = mysqli_query($conn,$qry);
-                        $vaccine_count =mysqli_num_rows($res);
-                        
-                        ?>
-                             <div class="number"><?php echo $vaccine_count  ?></div>
-                            <div class="cardname">Vaccines</div>
-                        </div>
-                      
-
-                    </div>
-
-
-                </div>
-                <div class="container">
-                       <h2 class="mt-4 mb-4" ><strong>My Profile</strong></h2>
-                    <form  method="POST">
+    <div class="container admin-profile p-2">
+            <h1>My Profile</h1>
+            <div>
+    <form  method="POST">
         <div class="mb-3 mt-3">
     
     <!-- <input type="text" class="form-control bg-light"  name="id" value=" hidden > 
   </div> -->
         <div class="mb-3 mt-3">
-            <label for="name" class="form-label">Hospital Name:</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="<?php echo $row['h_name']  ?>"  required>
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="<?php echo $row['p_name']  ?>"  required>
         </div>
         <div class="mb-3 mt-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="<?php echo $row['h_email']  ?>" required>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="<?php echo $row['p_email']  ?>" required>
         </div>
         <div class="mb-3">
             <label for="pwd" class="form-label">Password:</label>
-            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd"  value="<?php echo $row['h_password']  ?>" required>
+            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd"  value="<?php echo $row['P_password']  ?>" required>
         </div>
         <div class="mb-3">
             <label for="pwd" class="form-label">Phone no:</label>
-            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="phn"  value="<?php echo $row['h_phone']  ?>" required>
+            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="phn"  value="<?php echo $row['p_phone']  ?>" required>
         </div>
-        <div class="mb-3">
-            <label for="pwd" class="form-label">Address:</label>
-            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="address"  value="<?php echo $row['h_address']  ?>" required>
-        </div>
+        
         <button type="submit" class="btn updatebtn " name="updatebtn">Update Profile</button>
     </form>
 
@@ -214,13 +176,13 @@ if(!isset($_SESSION['hospital_session'])){
             $address =$_POST['address'];
 
 
-            $qry="UPDATE hospital_tbl SET h_name = '$name',h_email='$email',h_password = '$password', h_phone = '$phn', h_address = '$address' WHERE hospital_id = {$_SESSION['hospital_session']}";
+            $qry="UPDATE parent_tbl SET p_name = '$name',p_email='$email',P_password = '$password', p_phone = '$phn' WHERE parent_id = {$_SESSION['parent_session']}";
 
             $res = mysqli_query($conn,$qry);
             if($res){
                 echo"<script>
                         alert('Profile Updated Succussful');
-                        window.location.href='dashboard.php';
+                        window.location.href='parentprofile.php';
                 </script>";
             }
         }
@@ -230,11 +192,11 @@ if(!isset($_SESSION['hospital_session'])){
             </div>
             <div class="container">
                 <div class=image style="width:300px;">
-                    <img src="<?php echo $row['h_image'];  ?>"  alt="img" width="200">
+                    <img src="<?php echo $row['p_image'];  ?>"  alt="img" width="200">
 
                 </div>
                 <form method="post" enctype="multipart/form-data">
-                    <input type="file" name="image" ><br><br>
+                    <input type="file" name="image" ><br>
                     <button type="submit" name="btnupload" class="btn updatebtn " >Upload image</button>
 
                 </form>
@@ -246,7 +208,7 @@ if(!isset($_SESSION['hospital_session'])){
                     $path = "assets/image/$imageName";
                     move_uploaded_file($tempName,$path);
 
-                    $qry = "UPDATE hospital_tbl SET h_image='$path' WHERE hospital_id = $_SESSION[hospital_session]";
+                    $qry = "UPDATE parent_tbl SET p_image='$path' WHERE parent_id = $_SESSION[parent_session]";
 
                     $res =mysqli_query($conn,$qry);
 
@@ -254,7 +216,7 @@ if(!isset($_SESSION['hospital_session'])){
                         echo
                         "<script>
                         alert('Image Changed Succussfully');
-                        window.location.href='dashboard.php';
+                        window.location.href='parentprofile.php';
                         
                         </script>";
                     }
@@ -265,21 +227,7 @@ if(!isset($_SESSION['hospital_session'])){
 
             </div>
 
-
-                </div>
-
-
-
-</div>
-
-
-
-            <!--  Content right -->
-           
-                <!--Footer-->
-
-            </div>
-        </div>
+          </div>
 
         <!--Main Content-->
 

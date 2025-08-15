@@ -3,7 +3,7 @@
 include("Admindashboard/connection.php");
 session_start();
 
-error_reporting(0);
+// error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +52,18 @@ error_reporting(0);
 <!-- Bootstrap JS bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+
+<style>
+  .h-add-btn a{
+    text-decoration:none; 
+    color:var(--text-color2); 
+    transition: all cubic-bezier(0.19, 1, 0.22, 1)1s;;
+
+  }
+  .h-add-btn a:hover{
+    color:var(--text-color);
+  }
+</style>
 
 
 </head>
@@ -400,7 +412,7 @@ Its symptoms appear after two days and last for a week. If left untreated, it ca
   <div class="col" data-aos="flip-left">
       <div class="card">
         <div class="info">
-            <img src="./assets/image/v5.JPG">
+            <img src="./assets/image/v21.JPG">
         </div>
 
         <div class="desc">
@@ -542,8 +554,8 @@ if (mysqli_num_rows($res) > 0) {
     </div>
 
     <br>
-    <h2>For Hospital Management</h2>
-    <button class="h-add-btn" data-bs-toggle="" data-bs-target=""><a href="hospitaldashboard/hospitaladd.php">Register here</a></button>
+    <h2 style="color:var(--text-color);">For Hospital Management</h2>
+    <button class="h-add-btn" data-bs-toggle="" data-bs-target=""><a target="_blank" href="hospitaldashboard/hospitaladd.php">Register here</a></button>
     <button class="h-add-btn" data-bs-toggle="modal" data-bs-target="#myModalHlogin">Login here</button>
   </div>
 </section>
@@ -685,22 +697,22 @@ if (mysqli_num_rows($res) > 0) {
  <!-- ---------------contact--------- -->
 
  <section class="contact" id="contact">
-  <div class="container c-row"  data-aos="slide-up">
+  <div class="container c-row"  data-aos="">
     <div class="c-data col ">
       <h1 class="m-2 my-4 display-4">GET IN TOUCH</h1>
       <div class="container mb-4">
         <form action="contact-insert.php" method="post"  >
   <div class="row">
     <div class="col">
-      <input type="text" class="form-control" placeholder="Your Name" name="name" id="name">
+      <input type="text" class="form-control" placeholder="Your Name" name="name" id="name" required>
     </div>
     <div class="col">
-      <input type="text" class="form-control" placeholder="Phone no" name="phn" id="phn">
+      <input type="text" class="form-control" placeholder="Phone no" name="phn" id="phn" required>
     </div>
   </div>
   <div class="mb-3 mt-3">
     <!-- <label for="email" class="form-label">Email:</label> -->
-    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" id="email">
+    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" id="email" required>
   </div>
   <div>
     <!-- <label for="comment">Comments:</label> -->
@@ -743,16 +755,53 @@ if (mysqli_num_rows($res) > 0) {
     <div class="container mt-3">
   <form action="" method="post">
     <div class="mb-3 mt-3">
-      <label for="uname">User Name:</label>
-      <input type="text" class="form-control" id="email" name="uname">
+      <label for="uname">Email:</label>
+      <input type="text" class="form-control" id="email" name="email" required>
     </div>
-    <div class="mb-3">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" name="pswd">
-    </div>
+      <div class="mb-3">
+        <label for="pwd" class="form-label">Password:</label>
+        <div class="input-group">
+            <input type="password" class="form-control" id="password" name="pswd" required>
+           <span class="input-group-text" style="cursor:pointer; color:var(--text-color2);font-size:16px;         background-color:var(--bg-second);">
+            <i class="fa-solid fa-eye pass"></i>
+           </span>
+        </div>
+     </div>
    
-    <button type="submit" class="btn l-btn">Login </button>
+    <button type="submit" name="btnlogin" class="btn l-btn">Login</button>
   </form>
+
+  <?php
+if(isset($_POST['btnlogin']))
+{
+    $email = $_POST['email'];
+    $password =$_POST['pswd'];
+
+    $qry = "SELECT * FROM parent_tbl WHERE p_email = '$email' AND P_password = '$password'";
+
+    $res = mysqli_query($conn,$qry);
+
+    if(mysqli_num_rows($res)>0)
+    {
+     
+      $row = mysqli_fetch_assoc($res);
+      $_SESSION['parent_session'] = $row['parent_id'];
+       echo"<script>
+      alert('Login succussful');
+      window.location.href='parentdashboard/dashboard.php';
+      </script>";
+     
+     
+    }else{
+        echo"<script>
+          alert('Incorrect Email or Password');
+      
+      </script>";
+    }
+}
+
+?>
+
 </div>
 
       </div>
@@ -788,32 +837,32 @@ if (mysqli_num_rows($res) > 0) {
       <!-- Modal body -->
       <div class="modal-body">
     <div class="container mt-3">
-  <form action="/action_page.php">
+  <form action="./parentdashboard/parentinsert.php" method="post">
      <div class="mb-3 mt-3">
-      <div class="row">
-  <div class="col">
-     <label for="">First Name:</label>
-    <input type="text" class="form-control"  aria-label="First name">
-  </div>
-  <div class="col">
-     <label for="">Last Name:</label>
-    <input type="text" class="form-control" aria-label="Last name">
-  </div>
+      <label for="">Name:</label>
+      <input type="text" class="form-control" id="name" name="name"required>
+    </div>
+    
       <div class="mb-3 mt-3">
       <label for="">Email:</label>
-      <input type="email" class="form-control" id="email" name="email">
+      <input type="email" class="form-control" id="email" name="email"required>
     </div>
     
     <div class="mb-3 mt-3">
       <label for="">Phone no:</label>
-      <input type="text" class="form-control" id="phone"  name="phn">
+      <input type="text" class="form-control" id="phone"  name="phn" required>
     </div>
-    <div class="mb-3">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" name="pswd">
-    </div>
+     <div class="mb-3">
+        <label for="pwd" class="form-label">Password:</label>
+        <div class="input-group">
+            <input type="password" class="form-control" id="password1" name="pswd" required>
+           <span class="input-group-text" style="cursor:pointer; color:var(--text-color2);font-size:16px;         background-color:var(--bg-second);">
+            <i class="fa-solid fa-eye pass"></i>
+           </span>
+        </div>
+     </div>
  <div class="mb-3">
-      <button type="submit" class="btn r-btn">Register Now</button>
+      <button type="submit" name="rsubmit" class="btn r-btn">Register Now</button>
     </div>
 
     
@@ -854,12 +903,17 @@ if (mysqli_num_rows($res) > 0) {
   <form action="" method="post">
     <div class="mb-3 mt-3">
       <label for="">Email:</label>
-      <input type="text" class="form-control" id="email" name="email">
+      <input type="text" class="form-control" id="email" name="email" required>
     </div>
     <div class="mb-3">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" name="pswd">
-    </div>
+        <label for="pwd" class="form-label">Password:</label>
+        <div class="input-group">
+            <input type="password" class="form-control" id="password2" name="pswd" required>
+           <span class="input-group-text" style="cursor:pointer; color:var(--text-color2);font-size:16px;         background-color:var(--bg-second);">
+            <i class="fa-solid fa-eye pass"></i>
+           </span>
+        </div>
+     </div>
    
     <button type="submit" class="btn l-btn" name="btnlogin">Login </button>
   </form>
@@ -911,68 +965,7 @@ if(isset($_POST['btnlogin']))
 </section>
 
 
-<!-- ---------hospital register  -->
 
-
-
-<section>
-<div class="modal fade" id="myModalHregister">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Hospital Management Registeration form</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-    <div class="container mt-3">
-  <form action="hospitaldashboard/hospitalinsert.php" method="post">
-     <div class="mb-3 mt-3">
-      <label for="">Hospital Name:</label>
-      <input type="text" class="form-control" id="hname" name="hname">
-    </div>
-      <div class="mb-3 mt-3">
-      <label for=""> Hospital Email:</label>
-      <input type="email" class="form-control" id="email" name="email">
-    </div>
-    
-    <div class="mb-3 mt-3">
-      <label for="">Phone no:</label>
-      <input type="text" class="form-control" id="phone"  name="phn">
-    </div>
-    <div class="mb-3">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" name="pswd">
-    </div>
-    <div class="mb-3">
-      <label for="pwd">Address:</label>
-      <input type="text" class="form-control" id="pwd" name="address">
-    </div>
- <div class="mb-3">
-      <button type="hsubmit" class="btn r-btn">Register Now</button>
-    </div>
-
-    
-    
-  </form>
-</div>
-
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn " data-bs-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
-    </div>
-
-
-</section>
 
 <!-- --------------footer----------------- -->
  <section>
@@ -1138,7 +1131,61 @@ if(isset($_POST['btnlogin']))
     <!--Nice select-->
     <script src="assets/js/jquery.nice-select.min.js"></script>
 
-    <!-- SMTP js -->
+    <!-- hide and show  password-->
+   <script>
+$(document).ready(function(){
+  $(".pass").on("click", function(){
+    var passwordField = $("#password");
+    var icon = $(this);
+    var passwordFieldType = passwordField.attr("type");
+
+    if(passwordFieldType === "password"){
+      passwordField.attr("type", "text");
+      icon.removeClass("fa-eye").addClass("fa-eye-slash"); // Change icon to eye-slash
+    } else {
+      passwordField.attr("type", "password");
+      icon.removeClass("fa-eye-slash").addClass("fa-eye"); // Change icon back to eye
+    }
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  $(".pass").on("click", function(){
+    var passwordField = $("#password1");
+    var icon = $(this);
+    var passwordFieldType = passwordField.attr("type");
+
+    if(passwordFieldType === "password"){
+      passwordField.attr("type", "text");
+      icon.removeClass("fa-eye").addClass("fa-eye-slash"); // Change icon to eye-slash
+    } else {
+      passwordField.attr("type", "password");
+      icon.removeClass("fa-eye-slash").addClass("fa-eye"); // Change icon back to eye
+    }
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  $(".pass").on("click", function(){
+    var passwordField = $("#password2");
+    var icon = $(this);
+    var passwordFieldType = passwordField.attr("type");
+
+    if(passwordFieldType === "password"){
+      passwordField.attr("type", "text");
+      icon.removeClass("fa-eye").addClass("fa-eye-slash"); // Change icon to eye-slash
+    } else {
+      passwordField.attr("type", "password");
+      icon.removeClass("fa-eye-slash").addClass("fa-eye"); // Change icon back to eye
+    }
+  });
+});
+</script>
+
 
     
 

@@ -17,7 +17,7 @@ error_reporting(0);
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!--Custom style.css-->
    
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <link rel="stylesheet" href="assets/css/hospitallogin.css">
     <!--Font Awesome-->
 
@@ -30,10 +30,16 @@ error_reporting(0);
     rel="stylesheet"/>
    
     
-    <title>Hospital Login</title>
+    <title>Hospital Register</title>
     
+<style>
+  body{
+    background-color:black !important;
+  }
+</style>
+
 </head>
- <body>
+ <body >
     <!--Page loader-->
     <div class="loader-wrapper">
         <div class="loader-circle">
@@ -44,31 +50,37 @@ error_reporting(0);
     
     <!--Page Wrapper-->
 
-    <div class="container-fluid" >
+    <div class="" >
+       <h1 style="color:var(--text-color);" class="m-4">VAXHEALTH</h1>
 
-   <div class="container mt-4"  style=" margin-top:80px;">>
+   <div class="container "  style=" margin-top:60px;">
             <div><h1 class="text-center  " style="color:var(--text-color); margin-top:70px;"> Hospital Registration Form </h1></div>
-<form action="hospitalinsert.php"  method ="POST" class="mx-5 ">
+<form class="formr" action="hospitalinsert.php"  method ="POST" class="mx-5 ">
   <div class="mb-3 mt-3">
     <label for="" class="form-label">Hospital Name:</label>
-    <input type="text" class="form-control bg-light"  name="name">
+    <input type="text" class="form-control bg-light"  name="name" Required>
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Phone_no:</label>
-    <input type="text" class="form-control"  name="phn">
+    <input type="text" class="form-control"  name="phn"  Required>
   </div>
     <div class="mb-3">
     <label for="" class="form-label">Email:</label>
-    <input type="email" class="form-control"  name="email">
+    <input type="email" class="form-control"  name="email"  Required>
   </div>
   <div class="mb-3 mt-3">
     <label for="" class="form-label">Address:</label>
-    <input type="text" class="form-control bg-light"  name="address">
+    <input type="text" class="form-control bg-light"  name="address"  Required>
   </div>
-    <div class="mb-3">
-    <label for="" class="form-label">Password:</label>
-    <input type="text" class="form-control"  name="pw">
-  </div>
+     <div class="mb-3">
+        <label for="pwd" class="form-label">Password:</label>
+        <div class="input-group">
+            <input type="password" class="form-control" id="password" name="pw"  Required>
+           <span class="input-group-text" style="cursor:pointer; color:var(--text-color2);font-size:16px;         background-color:var(--bg-second);">
+            <i class="fa-solid fa-eye pass"></i>
+           </span>
+        </div>
+     </div>
    
    
   
@@ -121,6 +133,31 @@ error_reporting(0);
             icon.classList.add("ri-sun-line");
         }
     }
+</script>
+
+<!-- hide and show  password-->
+   <script>
+$(document).ready(function(){
+  $(".pass").on("click", function(){
+    var passwordField = $("#password");
+    var icon = $(this);
+    var passwordFieldType = passwordField.attr("type");
+
+    if(passwordFieldType === "password"){
+      passwordField.attr("type", "text");
+      icon.removeClass("fa-eye").addClass("fa-eye-slash"); 
+    } else {
+      passwordField.attr("type", "password");
+      icon.removeClass("fa-eye-slash").addClass("fa-eye"); 
+    }
+  });
+});
+</script>
+<script>
+  window.addEventListener('load', function () {
+    var lw = document.querySelector('.loader-wrapper');
+    if (lw) lw.style.display = 'none';
+  });
 </script>
 
     
